@@ -1,4 +1,4 @@
-name: Build and publish Lab 1
+name: Publish image for Lab 1
 
 on:
   push:
@@ -20,7 +20,6 @@ jobs:
       - name: Log into registry
         run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u stevapple --password-stdin
       - name: Build image
-        working-directory: ${{ env.DIRECTORY }}
-        run: docker build -t stevapple/ustc-compile:${{ env.TAG }}
+        run: docker build -t stevapple/ustc-compile:${{ env.TAG }} ${{ env.DIRECTORY }}
       - name: Release
         run: docker push stevapple/ustc-compile:${{ env.TAG }}
