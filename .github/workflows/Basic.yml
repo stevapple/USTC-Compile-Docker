@@ -1,4 +1,4 @@
-name: Build basic
+name: Build and publish basic
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - Dockerfile
 
 env:
-  VERSION: basic
+  TAG: basic
 
 jobs:
   publish:
@@ -19,6 +19,6 @@ jobs:
       - name: Log into registry
         run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u stevapple --password-stdin
       - name: Build image
-        run: docker build -t stevapple/ustc-compile:${{ env.VERSION }}
+        run: docker build -t stevapple/ustc-compile:${{ env.TAG }}
       - name: Release
-        run: docker push stevapple/ustc-compile:${{ env.VERSION }}
+        run: docker push stevapple/ustc-compile:${{ env.TAG }}

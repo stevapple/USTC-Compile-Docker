@@ -1,0 +1,25 @@
+name: Manual publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      directory:
+        description: 'Directory containing target Dockerfile'
+        required: true
+      tag:
+        description: 'Version to tag'
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u stevapple --password-stdin
+      - name: Build image
+        working-directory: ${{ github.event.inputs.directory }}
+        run: docker build -t stevapple/ustc-compile:${{ github.event.inputs.tag }}
+      - name: Release
+        run: docker push stevapple/ustc-compile:${{ github.event.inputs.tag }}

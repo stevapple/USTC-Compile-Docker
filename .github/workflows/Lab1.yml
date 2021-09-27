@@ -1,4 +1,4 @@
-name: Build Lab 1
+name: Build and publish Lab 1
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - 'Lab1/**'
 
 env:
-  VERSION: lab1
+  TAG: lab1
   DIRECTORY: Lab1
 
 jobs:
@@ -21,6 +21,6 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u stevapple --password-stdin
       - name: Build image
         working-directory: ${{ env.DIRECTORY }}
-        run: docker build -t stevapple/ustc-compile:${{ env.VERSION }}
+        run: docker build -t stevapple/ustc-compile:${{ env.TAG }}
       - name: Release
-        run: docker push stevapple/ustc-compile:${{ env.VERSION }}
+        run: docker push stevapple/ustc-compile:${{ env.TAG }}
