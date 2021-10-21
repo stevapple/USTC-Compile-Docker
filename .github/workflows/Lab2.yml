@@ -1,0 +1,25 @@
+name: Publish image for Lab 2
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Lab2/**'
+
+env:
+  TAG: lab2
+  DIRECTORY: Lab2
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u stevapple --password-stdin
+      - name: Build image
+        run: docker build -t stevapple/ustc-compile:${{ env.TAG }} ${{ env.DIRECTORY }}
+      - name: Release
+        run: docker push stevapple/ustc-compile:${{ env.TAG }}
