@@ -1,0 +1,25 @@
+name: Lightweight image for graphviz
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Graphviz/**'
+
+env:
+  TAG: graphviz
+  DIRECTORY: Graphviz
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u stevapple --password-stdin
+      - name: Build image
+        run: docker build -t stevapple/ustc-compile:${{ env.TAG }} ${{ env.DIRECTORY }}
+      - name: Release
+        run: docker push stevapple/ustc-compile:${{ env.TAG }}
