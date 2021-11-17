@@ -5,7 +5,7 @@ LABEL Version="lab3"
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get install llvm python3 -y \
+    && apt-get install clang python3 -y \
     && apt-get clean
 
 CMD [ "/bin/sh" ]
