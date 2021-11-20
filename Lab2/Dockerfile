@@ -9,4 +9,4 @@ RUN apt-get update \
     && apt-get install clang llvm flex bison -y \
     && apt-get clean
 
-CMD [ "/bin/sh" ]
+CMD [ "/bin/bash" ]

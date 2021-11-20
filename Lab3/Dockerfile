@@ -8,4 +8,4 @@ RUN apt-get update \
     && apt-get install clang python3 -y \
     && apt-get clean
 
-CMD [ "/bin/sh" ]
+CMD [ "/bin/bash" ]
