@@ -5,8 +5,7 @@ LABEL Version="lab2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get install cmake build-essential -y \
-    && apt-get install clang llvm flex bison -y \
+    && apt-get install clang llvm -y \
     && apt-get clean
 
 CMD [ "/bin/bash" ]
